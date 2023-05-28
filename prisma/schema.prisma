@@ -15,14 +15,15 @@ model rol {
 }
 
 model budget {
-  id                            Int              @id
+  id                            Int              @id @default(autoincrement())
   consumer_id                   Int
   admin_id                      Int
   consumer_nickname             String?          @db.VarChar(30)
   admin_nickname                String?          @db.VarChar(30)
   create_at                     DateTime         @default(now()) @db.DateTime(0)
-  user_budget_admin_idTouser    user             @relation("budget_admin_idTouser", fields: [admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "budget_admin_id_fk")
-  user_budget_consumer_idTouser user             @relation("budget_consumer_idTouser", fields: [consumer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "budget_consumer_id_fk")
+  status                        String           @default("PENDIENTE") @db.VarChar(15)
+  user_budget_admin_idTouser    user             @relation("budget_admin_idTouser", fields: [admin_id], references: [id], onDelete: Cascade, map: "budget_admin_id_fk")
+  user_budget_consumer_idTouser user             @relation("budget_consumer_idTouser", fields: [consumer_id], references: [id], onDelete: Cascade, map: "budget_consumer_id_fk")
   budget_history                budget_history[]
 
   @@index([admin_id], map: "budget_admin_id_fk")
@@ -36,7 +37,7 @@ model budget_history {
   value               Float     @db.Float
   current_consumption Float?    @default(0.00) @db.Float
   budget_id           Int
-  budget              budget    @relation(fields: [budget_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "budget_history_budget_id_fk")
+  budget              budget    @relation(fields: [budget_id], references: [id], onDelete: Cascade, map: "budget_history_budget_id_fk")
   expense             expense[]
 
   @@index([budget_id], map: "budget_history_budget_id_fk")
@@ -51,7 +52,7 @@ model expense {
   expense_date     DateTime         @db.Date
   category_id      Int
   budget_id        Int
-  budget_history   budget_history   @relation(fields: [budget_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expense_budget_history_id_fk")
+  budget_history   budget_history   @relation(fields: [budget_id], references: [id], onDelete: Cascade, map: "expense_budget_history_id_fk")
   expense_category expense_category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expense_expense_category_id_fk")
 
   @@index([budget_id], map: "expense_budget_history_id_fk")
@@ -73,7 +74,7 @@ model user {
   rol_id                          Int
   budget_budget_admin_idTouser    budget[] @relation("budget_admin_idTouser")
   budget_budget_consumer_idTouser budget[] @relation("budget_consumer_idTouser")
-  rol                             rol      @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rol_id_fk")
+  rol                             rol      @relation(fields: [rol_id], references: [id], onDelete: Cascade, map: "user_rol_id_fk")
 
   @@index([rol_id], map: "user_rol_id_fk")
 }

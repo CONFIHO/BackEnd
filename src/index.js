@@ -8,7 +8,7 @@ const specs = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API Documentation",
+      title: "API CONFIHO Documentation",
       version: "1.0.0",
     },
   },
@@ -39,6 +39,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(specs)));
 
 // Rutas
 app.use("/api/users/", require("./controllers/routes/users.routes.js"));
+app.use("/api/budgets/", require("./controllers/routes/budgets.routes.js"));
 
 // Publico
 app.use(express.static(path.join(__dirname, "public")));

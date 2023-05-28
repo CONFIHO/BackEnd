@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { User } = require("../domain/users/entities/User");
 const prisma = new PrismaClient();
 
 class UserService {
@@ -65,7 +64,7 @@ class UserService {
         },
       });
     } catch (e) {
-      throw Error("User no found");
+      return e.code;
     }
   }
 
@@ -82,7 +81,7 @@ class UserService {
         }
       });
     } catch (e) {
-      throw Error("User not found");
+      return e.code;
     }
   }
 }
