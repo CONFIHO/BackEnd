@@ -11,8 +11,8 @@ class UserService {
           name: true,
           email: true,
           code: true,
-          rol_id: true
-        }
+          rol_id: true,
+        },
       });
     } catch (e) {
       return e.code;
@@ -28,8 +28,8 @@ class UserService {
           name: true,
           email: true,
           code: true,
-          rol_id: true
-        }
+          rol_id: true,
+        },
       });
     } catch (e) {
       return e.code;
@@ -77,10 +77,31 @@ class UserService {
           name: true,
           email: true,
           code: true,
-          rol_id: true
-        }
+          rol_id: true,
+        },
       });
     } catch (e) {
+      return e.code;
+    }
+  }
+
+  async auth(data) {
+    try {
+      return await prisma.user.findFirst({
+        where: {
+          email: data.email,
+          password: data.password,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          code: true,
+          rol_id: true,
+        },
+      });
+    } catch (e) {
+      console.log(e);
       return e.code;
     }
   }

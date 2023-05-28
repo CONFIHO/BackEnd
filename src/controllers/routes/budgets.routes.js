@@ -27,14 +27,14 @@ const budgetService = new BudgetService();
  *           type: string
  *           description: the admin nickname
  *         create_at:
- *           type: date-time  
+ *           type: date-time
  *           description: budget creation date
  *         status:
  *           type: string
  *           enum:
  *             - PENDIENTE
  *             - VINCULADO
- *             - CANCELADO 
+ *             - CANCELADO
  *       required:
  *         - id
  *         - consumer_id
@@ -48,7 +48,7 @@ const budgetService = new BudgetService();
  * /api/budgets/all/{user_id}:
  *   get:
  *     summary: Get budgets list of a user
- *     tags: [User]
+ *     tags: [Budget]
  *     parameters:
  *       - in: path
  *         name: user_id
@@ -75,7 +75,7 @@ router.get("/all/:user_id", async (req, res) => {
  * /api/budgets/{budget_id}:
  *   get:
  *     summary: Get a budget
- *     tags: [User]
+ *     tags: [Budget]
  *     parameters:
  *       - in: path
  *         name: budget_id
@@ -103,7 +103,7 @@ router.get("/:budget_id", async (req, res) => {
  * /api/budgets/:
  *   post:
  *     summary: Create budget
- *     tags: [User]
+ *     tags: [Budget]
  *     requestBody:
  *       required: true
  *       content:
@@ -129,7 +129,7 @@ router.post("/", async (req, res) => {
  * /api/budgets/:
  *   put:
  *     summary: Update budget
- *     tags: [User]
+ *     tags: [Budget]
  *     requestBody:
  *       required: true
  *       content:
@@ -155,7 +155,7 @@ router.put("/", async (req, res) => {
  * /api/budgets/{budget_id}:
  *   delete:
  *     summary: Delete budget
- *     tags: [User]
+ *     tags: [Budget]
  *     parameters:
  *       - in: path
  *         name: budget_id

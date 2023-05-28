@@ -177,4 +177,38 @@ router.delete("/:id", async (req, res) => {
   res.json(await userService.delete(parseInt(req.params.id)));
 });
 
+/**
+ * @swagger
+ * /api/users/auth/:
+ *   post:
+ *     summary: Auth an user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: the user email
+ *               password:
+ *                 type: string
+ *                 description: the user password
+ *     responses:
+ *       200:
+ *         description: user found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: user not found
+ */
+router.post("/auth/", async (req, res) => {
+  res.json(await userService.auth(req.body));
+});
+
 module.exports = router;
