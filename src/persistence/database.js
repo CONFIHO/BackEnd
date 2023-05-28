@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const {promisify} = require('util');
 require('dotenv').config();
 
-const pool = mysql.createPool(JSON.parse(process.env.DATABASE_CONF));
+const pool = mysql.createPool(JSON.parse(process.env.DATABASE_CONF||''));
 
 pool.getConnection((err, connection) => {
     if (err) {
