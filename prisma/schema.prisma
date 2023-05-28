@@ -67,7 +67,7 @@ model expense_category {
 model user {
   id                              Int      @id @default(autoincrement())
   name                            String   @db.VarChar(30)
-  email                           String   @db.VarChar(50)
+  email                           String   @unique(map: "user_pk") @db.VarChar(50)
   password                        String   @db.VarChar(15)
   code                            String?  @db.VarChar(20)
   rol_id                          Int

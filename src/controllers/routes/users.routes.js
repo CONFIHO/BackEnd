@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const UserService = require("../../services/user.service");
-const { default: Roles } = require("../../domain/constants/roles");
 
 const userService = new UserService();
 
@@ -47,7 +46,7 @@ const userService = new UserService();
  * @swagger
  * /api/users/all/{rol_id}:
  *   get:
- *     summary: Get users listo with a rol id
+ *     summary: Get users list with a rol id
  *     tags: [User]
  *     parameters:
  *       - in: path
@@ -72,7 +71,35 @@ router.get("/all/:rol_id", async (req, res) => {
 
 /**
  * @swagger
- * /api/users:
+ * /api/users/{user_id}:
+ *   get:
+ *     summary: Get a user
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: user id to search
+ *     responses:
+ *       200:
+ *         description: user found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: user not found
+ */
+router.get("/:user_id", async (req, res) => {
+  res.json(await userService.findOne(parseInt(req.params.user_id)));
+});
+
+/**
+ * @swagger
+ * /api/users/:
  *   post:
  *     summary: Create user
  *     tags: [User]

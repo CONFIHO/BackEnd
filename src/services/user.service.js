@@ -7,9 +7,32 @@ class UserService {
     try {
       return await prisma.user.findMany({
         where: { rol_id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          code: true,
+          rol_id: true
+        }
       });
     } catch (e) {
-      console.log(e);
+      return e.code;
+    }
+  }
+
+  async findOne(id) {
+    try {
+      return await prisma.user.findFirst({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          code: true,
+          rol_id: true
+        }
+      });
+    } catch (e) {
       return e.code;
     }
   }
@@ -25,7 +48,6 @@ class UserService {
         },
       });
     } catch (e) {
-      console.log(e);
       return e.code;
     }
   }
@@ -51,6 +73,13 @@ class UserService {
     try {
       return await prisma.user.delete({
         where: { id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          code: true,
+          rol_id: true
+        }
       });
     } catch (e) {
       throw Error("User not found");
