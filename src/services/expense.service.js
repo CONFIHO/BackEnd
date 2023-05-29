@@ -24,6 +24,10 @@ class UserService {
 
   async create(data) {
     try {
+      await prisma.budget_history.update({
+        where: { id: data.budget_id },
+        data: { current_consumption: { increment: data.value } },
+      });
       return await prisma.expense.create({
         data: {
           description: data.description,
