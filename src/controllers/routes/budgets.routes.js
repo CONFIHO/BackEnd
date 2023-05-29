@@ -78,7 +78,7 @@ const budgetService = new BudgetService();
  *                 $ref: '#/components/schemas/Budget'
  */
 router.get("/all/:user_id", async (req, res) => {
-  res.json(await budgetService.findAll(parseInt(req.params.user_id)));
+  res.json(await budgetService.findAll(parseInt(req.params.user_id), req.query.status));
 });
 
 /**

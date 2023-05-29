@@ -83,10 +83,12 @@ class BudgetService {
         },
       });
       for (const budget of budgets) {
-        budget.budget_history = budget.budget_history[0];
-        budget.budget_history.percentages = await this.getPercentages(
-          budget.budget_history.id
-        );
+        if(budget.budget_history.length>0){
+          budget.budget_history = budget.budget_history[0];
+          budget.budget_history.percentages = await this.getPercentages(
+            budget.budget_history.id
+          );
+        }
       }
       return budgets;
     } catch (e) {
