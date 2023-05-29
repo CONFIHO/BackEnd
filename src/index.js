@@ -9,7 +9,7 @@ const specs = {
     openapi: "3.0.0",
     info: {
       title: "API CONFIHO Documentation",
-      version: "1.0.0",
+      version: "1.1.0",
     },
   },
   apis: [`${path.join(__dirname, "./controllers/routes/*.js")}`],
