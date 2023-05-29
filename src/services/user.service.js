@@ -14,6 +14,7 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
+          is_active: true
         },
       });
     } catch (e) {
@@ -31,6 +32,7 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
+          is_active: true
         },
       });
     } catch (e) {
@@ -54,6 +56,7 @@ class UserService {
           rol_id: data.rol_id,
           code: data.code,
           password: data.password,
+          is_active: true
         },
       });
     } catch (e) {
@@ -71,6 +74,7 @@ class UserService {
           rol_id: data.rol_id,
           password: data.password,
           code: data.code,
+          is_active: data.is_active
         },
       });
     } catch (e) {
@@ -88,6 +92,7 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
+          is_active: true
         },
       });
     } catch (e) {
@@ -101,6 +106,7 @@ class UserService {
         where: {
           email: data.email,
           password: data.password,
+          is_active: true
         },
         select: {
           id: true,
@@ -108,6 +114,7 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
+          is_active: true
         },
       });
     } catch (e) {
