@@ -185,4 +185,44 @@ router.delete("/:id", async (req, res) => {
   res.json(await expenseService.delete(parseInt(req.params.id)));
 });
 
+/**
+ * @swagger
+ * /api/expenses/consumptionReport:
+ *   post:
+ *     summary: total consumption report between two dates
+ *     tags: [Expense]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               start_date:
+ *                 type: string
+ *                 format: date
+ *               end_date:
+ *                 type: string
+ *                 format: date
+ *     responses:
+ *       200:
+ *         description: consumption report
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 start_date:
+ *                   type: string
+ *                   format: date
+ *                 end_date:
+ *                   type: string
+ *                   format: date
+ *       404:
+ *         description: Expense not found
+ */
+router.post("/consumptionReport", async (req, res) => {
+    res.json(await expenseService.consumptionReport(req.body));
+  });
+
 module.exports = router;

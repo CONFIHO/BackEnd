@@ -71,6 +71,24 @@ class UserService {
       return e.code;
     }
   }
+
+  async consumptionReport(data) {
+    try {
+      return await prisma.expense.groupBy({
+        where: {
+          AND: [
+            { expense_date: { gte: new Date(data.start_date) } },
+            { expense_date: { lte: new Date(data.end_date) } },
+          ],
+        },
+        by: ["expense_date"],
+        _sum: {value: true}
+      });
+    } catch (e) {
+      console.log(e);
+      return e.code;
+    }
+  }
 }
 
 module.exports = UserService;
