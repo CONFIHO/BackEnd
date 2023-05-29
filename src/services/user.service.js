@@ -5,10 +5,15 @@ const prisma = new PrismaClient();
 
 class UserService {
   async findAll(nameFilter, rol_id) {
+    if (rol_id) {
+      rol_id = parseInt(rol_id);
+    }
     try {
       return await prisma.user.findMany({
         where: {
-            name: { contains: nameFilter }, rol_id },
+          name: { contains: nameFilter },
+          rol_id,
+        },
         select: {
           id: true,
           name: true,

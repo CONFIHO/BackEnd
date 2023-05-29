@@ -73,7 +73,7 @@ const userService = new UserService();
  */
 router.get("/", async (req, res) => {
   const {name, rol_id} = req.query
-  res.json(await userService.findAll(name, parseInt(rol_id)));
+  res.json(await userService.findAll(name,rol_id));
 });
 
 /**

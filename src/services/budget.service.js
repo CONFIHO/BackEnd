@@ -3,10 +3,13 @@ const { Budget } = require("../domain/budgets/entities/Budget");
 const prisma = new PrismaClient();
 
 class BudgetService {
-  async findAll(user_id) {
+  async findAll(user_id, status) {
     try {
       return await prisma.budget.findMany({
-        where: { OR: [{ admin_id: user_id }, { consumer_id: user_id }] },
+        where: {
+          OR: [{ admin_id: user_id }, { consumer_id: user_id }],
+          status,
+        },
       });
     } catch (e) {
       return e;

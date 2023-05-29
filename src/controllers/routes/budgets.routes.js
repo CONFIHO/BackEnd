@@ -57,6 +57,16 @@ const budgetService = new BudgetService();
  *           type: integer
  *         required: true
  *         description: user id
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum:
+ *           - PENDIENTE
+ *           - VINCULADO
+ *           - CANCELADO
+ *         required: false
+ *         description: budget status
  *     responses:
  *       200:
  *         description: list of budgets
