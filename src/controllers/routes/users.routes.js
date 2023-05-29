@@ -44,7 +44,27 @@ const userService = new UserService();
 
 /**
  * @swagger
- * /api/users/all/{rol_id}:
+ * /api/users/:
+ *   get:
+ *     summary: Get users list
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: list of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+router.get("/", async (req, res) => {
+  res.json(await userService.findAll());
+});
+
+/**
+ * @swagger
+ * /api/users/roles/{rol_id}:
  *   get:
  *     summary: Get users list with a rol id
  *     tags: [User]
@@ -65,7 +85,7 @@ const userService = new UserService();
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-router.get("/all/:rol_id", async (req, res) => {
+router.get("/roles/:rol_id", async (req, res) => {
   res.json(await userService.findAll(parseInt(req.params.rol_id)));
 });
 

@@ -87,7 +87,6 @@ class BudgetService {
       }
       return budgets;
     } catch (e) {
-      console.log(e);
       return e.code;
     }
   }
@@ -113,7 +112,6 @@ class BudgetService {
         };
       });
     } catch (e) {
-      console.log(e);
       return e.code;
     }
   }
