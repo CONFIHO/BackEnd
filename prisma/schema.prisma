@@ -47,10 +47,10 @@ model expense {
   id               Int              @id @default(autoincrement())
   description      String           @db.Text
   value            Float            @db.Float
-  file_name        String           @db.VarChar(50)
-  fileData         Bytes            @db.Blob
+  file_name        String?          @db.VarChar(50)
+  fileData         Bytes?           @db.Blob
   expense_date     DateTime         @db.Date
-  category_id      Int
+  category_id      Int              @default(5)
   budget_id        Int
   budget_history   budget_history   @relation(fields: [budget_id], references: [id], onDelete: Cascade, map: "expense_budget_history_id_fk")
   expense_category expense_category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expense_expense_category_id_fk")

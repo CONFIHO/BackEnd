@@ -178,4 +178,32 @@ router.delete("/:id", async (req, res) => {
   res.json(await budgetService.delete(parseInt(req.params.id)));
 });
 
+/**
+ * @swagger
+ * /api/budgets/current/{user_id}:
+ *   get:
+ *     summary: Get user current budgets
+ *     tags: [Budget]
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: user_id to search budget
+ *     responses:
+ *       200:
+ *         description: list of budgets
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Budget'
+ *       404:
+ *         description: budget not found
+ */
+router.get("/current/:user_id", async (req, res) => {
+  res.json(await budgetService.getBudgets(parseInt(req.params.user_id)));
+});
+
 module.exports = router;

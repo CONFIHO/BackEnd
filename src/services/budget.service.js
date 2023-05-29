@@ -30,7 +30,7 @@ class BudgetService {
           admin_id: data.admin_id,
           consumer_id: data.consumer_id,
           admin_nickname: data.admin_nickname,
-          consumer_nickname: data.consumer_nickname
+          consumer_nickname: data.consumer_nickname,
         },
       });
     } catch (e) {
@@ -45,7 +45,7 @@ class BudgetService {
         data: {
           admin_nickname: data.admin_nickname,
           consumer_nickname: data.consumer_nickname,
-          status: data.status
+          status: data.status,
         },
       });
     } catch (e) {
@@ -59,6 +59,62 @@ class BudgetService {
         where: { id },
       });
     } catch (e) {
+      return e.code;
+    }
+  }
+
+  async getBudgets(user_id) {
+    try {
+      let budgets = await prisma.budget.findMany({
+        where: {
+          OR: [{ admin_id: user_id }, { consumer_id: user_id }],
+        },
+        include: {
+          budget_history: {
+            orderBy: { id: "desc" },
+            take: 1,
+            include: {
+              expense: true,
+            },
+          },
+        },
+      });
+      for (const budget of budgets) {
+        for (const history of budget.budget_history) {
+          history.percentages = await this.getPercentages(
+            budget.budget_history[0].id
+          );
+        }
+      }
+      return budgets;
+    } catch (e) {
+      console.log(e);
+      return e.code;
+    }
+  }
+
+  async getPercentages(budget_id) {
+    try {
+      const expensesByCategory = await prisma.expense.groupBy({
+        where: { budget_id },
+        by: ["category_id"],
+        _sum: { value: true },
+        _count: { category_id: true },
+      });
+
+      const budget = await prisma.budget_history.findUnique({
+        where: { id: budget_id },
+      });
+
+      const current_consumption = budget.current_consumption;
+      return expensesByCategory.map((expense) => {
+        return {
+          category_id: expense.category_id,
+          percentage: (expense._sum.value / current_consumption) * 100,
+        };
+      });
+    } catch (e) {
+      console.log(e);
       return e.code;
     }
   }
