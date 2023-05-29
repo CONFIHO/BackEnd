@@ -1,4 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
+const Roles = require("../domain/constants/Roles");
+const getRandomCode = require("../util/code-generator");
 const prisma = new PrismaClient();
 
 class UserService {
@@ -37,12 +39,20 @@ class UserService {
   }
 
   async create(data) {
+    if (data.rol_id == Roles.CONSUMMER) {
+      let user = null;
+      do {
+        data.code = getRandomCode();
+        user = await prisma.user.findFirst({ where: { code: data.code } });
+      } while (user!= null);
+    }
     try {
       return await prisma.user.create({
         data: {
           name: data.name,
           email: data.email,
           rol_id: data.rol_id,
+          code: data.code,
           password: data.password,
         },
       });
