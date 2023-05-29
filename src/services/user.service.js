@@ -62,7 +62,7 @@ class UserService {
           rol_id: data.rol_id,
           code: data.code,
           password: data.password,
-          is_active: true,
+          is_active: data.is_active,
         },
       });
     } catch (e) {
