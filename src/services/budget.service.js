@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { Budget } = require("../domain/budgets/entities/Budget");
+const BudgetStatus = require("../domain/constants/BudgetStatus");
 const prisma = new PrismaClient();
 
 class BudgetService {
@@ -71,6 +71,7 @@ class BudgetService {
       let budgets = await prisma.budget.findMany({
         where: {
           OR: [{ admin_id: user_id }, { consumer_id: user_id }],
+          status: BudgetStatus.VINCULADO,
         },
         include: {
           budget_history: {
@@ -83,11 +84,13 @@ class BudgetService {
         },
       });
       for (const budget of budgets) {
-        if(budget.budget_history.length>0){
+        if (budget.budget_history.length > 0) {
           budget.budget_history = budget.budget_history[0];
           budget.budget_history.percentages = await this.getPercentages(
             budget.budget_history.id
           );
+        } else {
+          budget.budget_history = {};
         }
       }
       return budgets;
