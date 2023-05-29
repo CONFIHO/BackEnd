@@ -40,7 +40,7 @@ const expenseService = new ExpenseService();
  *             - 4
  *             - 5
  *         budget_id:
- *           type: integer 
+ *           type: integer
  *       required:
  *         - id
  *         - description
@@ -211,18 +211,44 @@ router.delete("/:id", async (req, res) => {
  *           application/json:
  *             schema:
  *               type: object
- *               properties:
- *                 start_date:
- *                   type: string
- *                   format: date
- *                 end_date:
- *                   type: string
- *                   format: date
  *       404:
  *         description: Expense not found
  */
 router.post("/consumptionReport", async (req, res) => {
-    res.json(await expenseService.consumptionReport(req.body));
+  res.json(await expenseService.consumptionReport(req.body));
+});
+
+/**
+ * @swagger
+ * /api/expenses/categoriesExpensesReport:
+ *   post:
+ *     summary: categories Expenses Report between two dates
+ *     tags: [Expense]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               start_date:
+ *                 type: string
+ *                 format: date
+ *               end_date:
+ *                 type: string
+ *                 format: date
+ *     responses:
+ *       200:
+ *         description: categories Expenses Report
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       404:
+ *         description: Expense not found
+ */
+router.post("/categoriesExpensesReport", async (req, res) => {
+    res.json(await expenseService.categoriesExpensesReport(req.body));
   });
 
 module.exports = router;
