@@ -44,10 +44,23 @@ const userService = new UserService();
 
 /**
  * @swagger
- * /api/users/:
+ * /api/users:
  *   get:
  *     summary: Get users list
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: rol_id
+ *         schema:
+ *           type: integer
+ *         required: false
+ *         description: user rol id
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: user nane
  *     responses:
  *       200:
  *         description: list of users
@@ -59,34 +72,8 @@ const userService = new UserService();
  *                 $ref: '#/components/schemas/User'
  */
 router.get("/", async (req, res) => {
-  res.json(await userService.findAll());
-});
-
-/**
- * @swagger
- * /api/users/roles/{rol_id}:
- *   get:
- *     summary: Get users list with a rol id
- *     tags: [User]
- *     parameters:
- *       - in: path
- *         name: rol_id
- *         schema:
- *           type: integer
- *         required: true
- *         description: user rol id
- *     responses:
- *       200:
- *         description: list of users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- */
-router.get("/roles/:rol_id", async (req, res) => {
-  res.json(await userService.findAll(parseInt(req.params.rol_id)));
+  const {name, rol_id} = req.query
+  res.json(await userService.findAll(name, parseInt(rol_id)));
 });
 
 /**

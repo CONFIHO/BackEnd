@@ -8,7 +8,7 @@ class UserService {
         where: { budget_id },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -18,7 +18,7 @@ class UserService {
         where: { id },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -40,7 +40,7 @@ class UserService {
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -58,7 +58,7 @@ class UserService {
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -68,7 +68,7 @@ class UserService {
         where: { id },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -85,7 +85,7 @@ class UserService {
         _sum: {value: true}
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -102,7 +102,7 @@ class UserService {
         _count: {id: true}
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 }

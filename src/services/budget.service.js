@@ -9,7 +9,7 @@ class BudgetService {
         where: { OR: [{ admin_id: user_id }, { consumer_id: user_id }] },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -19,7 +19,7 @@ class BudgetService {
         where: { id },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -34,7 +34,7 @@ class BudgetService {
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -49,7 +49,7 @@ class BudgetService {
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -59,7 +59,7 @@ class BudgetService {
         where: { id },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -87,7 +87,7 @@ class BudgetService {
       }
       return budgets;
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -112,7 +112,7 @@ class BudgetService {
         };
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 }

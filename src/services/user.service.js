@@ -4,21 +4,22 @@ const getRandomCode = require("../util/code-generator");
 const prisma = new PrismaClient();
 
 class UserService {
-  async findAll(rol_id) {
+  async findAll(nameFilter, rol_id) {
     try {
       return await prisma.user.findMany({
-        where: { rol_id },
+        where: {
+            name: { contains: nameFilter }, rol_id },
         select: {
           id: true,
           name: true,
           email: true,
           code: true,
           rol_id: true,
-          is_active: true
+          is_active: true,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -32,11 +33,11 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
-          is_active: true
+          is_active: true,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -46,7 +47,7 @@ class UserService {
       do {
         data.code = getRandomCode();
         user = await prisma.user.findFirst({ where: { code: data.code } });
-      } while (user!= null);
+      } while (user != null);
     }
     try {
       return await prisma.user.create({
@@ -56,11 +57,11 @@ class UserService {
           rol_id: data.rol_id,
           code: data.code,
           password: data.password,
-          is_active: true
+          is_active: true,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -74,11 +75,11 @@ class UserService {
           rol_id: data.rol_id,
           password: data.password,
           code: data.code,
-          is_active: data.is_active
+          is_active: data.is_active,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -92,11 +93,11 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
-          is_active: true
+          is_active: true,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 
@@ -106,7 +107,7 @@ class UserService {
         where: {
           email: data.email,
           password: data.password,
-          is_active: true
+          is_active: true,
         },
         select: {
           id: true,
@@ -114,11 +115,11 @@ class UserService {
           email: true,
           code: true,
           rol_id: true,
-          is_active: true
+          is_active: true,
         },
       });
     } catch (e) {
-      return e.code;
+      return e;
     }
   }
 }
