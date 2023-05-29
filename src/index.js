@@ -40,6 +40,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(specs)));
 // Rutas
 app.use("/api/users/", require("./controllers/routes/users.routes.js"));
 app.use("/api/budgets/", require("./controllers/routes/budgets.routes.js"));
+app.use("/api/expenses/", require("./controllers/routes/expenses.routes.js"));
 
 // Publico
 app.use(express.static(path.join(__dirname, "public")));

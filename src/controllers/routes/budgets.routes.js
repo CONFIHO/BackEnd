@@ -27,7 +27,8 @@ const budgetService = new BudgetService();
  *           type: string
  *           description: the admin nickname
  *         create_at:
- *           type: date-time
+ *           type: string
+ *           format: time-date
  *           description: budget creation date
  *         status:
  *           type: string
@@ -90,7 +91,7 @@ router.get("/all/:user_id", async (req, res) => {
  *           application/json:
  *             schema:
  *               type: object
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/Budget'
  *       404:
  *         description: budget not found
  */
