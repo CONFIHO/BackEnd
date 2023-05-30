@@ -6,11 +6,15 @@ class BudgetService {
   async findAll(user_id, status) {
     try {
       return await prisma.budget.findMany({
+        select: {
+          user_budget_admin_idTouser: { select: { name: true } },
+          id: true,
+          admin_nickname: true,
+        },
         where: {
           OR: [{ admin_id: user_id }, { consumer_id: user_id }],
           status,
         },
-        include: { user_budget_admin_idTouser: { select: { name: true } } },
       });
     } catch (e) {
       return e;
