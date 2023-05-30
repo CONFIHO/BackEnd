@@ -60,7 +60,12 @@ const userService = new UserService();
  *         schema:
  *           type: string
  *         required: false
- *         description: user nane
+ *       - in: query
+ *         name: is_active
+ *         schema:
+ *           type: boolean
+ *         required: false
+ *         description: user is active filter
  *     responses:
  *       200:
  *         description: list of users
@@ -72,8 +77,8 @@ const userService = new UserService();
  *                 $ref: '#/components/schemas/User'
  */
 router.get("/", async (req, res) => {
-  const {name, rol_id} = req.query
-  res.json(await userService.findAll(name,rol_id));
+  const { name, rol_id, is_active } = req.query;
+  res.json(await userService.findAll(name, rol_id, (is_active === "true")));
 });
 
 /**

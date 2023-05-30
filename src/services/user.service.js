@@ -4,7 +4,7 @@ const getRandomCode = require("../util/code-generator");
 const prisma = new PrismaClient();
 
 class UserService {
-  async findAll(nameFilter, rol_id) {
+  async findAll(nameFilter, rol_id, is_active) {
     if (rol_id) {
       rol_id = parseInt(rol_id);
     }
@@ -13,6 +13,7 @@ class UserService {
         where: {
           name: { contains: nameFilter },
           rol_id,
+          is_active
         },
         select: {
           id: true,
