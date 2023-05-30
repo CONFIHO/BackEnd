@@ -78,7 +78,7 @@ const userService = new UserService();
  */
 router.get("/", async (req, res) => {
   const { name, rol_id, is_active } = req.query;
-  res.json(await userService.findAll(name, rol_id, (is_active === "true")));
+  res.json(await userService.findAll(name, rol_id, is_active?(is_active === "true"):undefined));
 });
 
 /**
